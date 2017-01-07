@@ -29,8 +29,6 @@ on property:ro.crypto.state=encrypted
     stop sbinqseecomd
     start sbinqseecomd
 
-on property:ro.crypto.fs_crypto_blkdev=/dev/block/dm-0
-    stop sbinqseecomd
 
 # QSEE crypt support service
 # Separate copy needed to use /sbin/linker64 instead of /system/bin/linker64
@@ -71,3 +69,25 @@ on fs
 
     symlink /firmware/image /vendor/firmware
 
+# Launch vold after filesystem mounted
+on post-fs-data
+	start vold
+	
+# Add vold support for modifying encryption
+service vold /sbin/vold --blkid_context=u:r:blkid:s0 --blkid_untrusted_context=u:r:blkid_untrusted:s0 --fsck_context=u:r:fsck:s0 --fsck_untrusted_context=u:r:fsck_untrusted:s0
+    class core
+    socket vold stream 0660 root mount
+    socket cryptd stream 0660 root mount
+    ioprio be 2
+    seclabel u:r:recovery:s0
+
+# Add debuggerd support to pair with vold
+#service debuggerd /sbin/debuggerd
+#    class main
+#    writepid /dev/cpuset/system-background/tasks
+#	seclabel u:r:recovery:s0
+
+service debuggerd64 /sbin/debuggerd64
+    class main
+    writepid /dev/cpuset/system-background/tasks
+	seclabel u:r:recovery:s0
