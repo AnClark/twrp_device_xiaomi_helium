@@ -91,6 +91,9 @@ TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_INCLUDE_CRYPTO := true
 TW_THEME= portrait_hdpi
 
+# Asian region languages
+TW_EXTRA_LANGUAGES := true
+
 # Vendor Init
 # Maybe this is an essential for enabling decryption.
 TARGET_INIT_VENDOR_LIB := libinit_msm
