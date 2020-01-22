@@ -24,6 +24,8 @@ TARGET_2ND_CPU_VARIANT := cortex-a53
 # Kernel
 #TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8956
 #TARGET_KERNEL_CONFIG := twrp_defconfig
+#TARGET_KERNEL_CONFIG := lineageos_helium_defconfig
+#BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 
@@ -53,7 +55,8 @@ TW_THEME := portrait_hdpi
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_RECOVERY_QCOM_RTC_FIX := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
+# TWRP BUG: Must add an "%d" to avoid a "data argument not used by format string" error
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_DEFAULT_BRIGHTNESS := 80
 TW_DEFAULT_EXTERNAL_STORAGE := true

@@ -5,18 +5,7 @@ on init
     chmod 0664 /dev/ion
     chown system system /dev/ion
 
-on early-fs
-    start setup-decrypt
-
 service qseecomd /sbin/qseecomd
-    oneshot
-    disabled
-    user root
-    group root
-    seclabel u:r:recovery:s0
-
-# use decryption libraries from /system if available
-service setup-decrypt /sbin/setup_decrypt
     oneshot
     disabled
     user root
@@ -32,3 +21,5 @@ on boot
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor interactive
+
+

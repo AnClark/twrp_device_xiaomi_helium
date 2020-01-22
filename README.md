@@ -22,23 +22,26 @@ Release Date | May 2016
 
 ## How-to compile it:
 
-Add to `.repo/local_manifests/helium.xml`:
+Download Omni source. Minimal Manifest TWRP is highly recommended:
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-	<project path="device/xiaomi/helium" name="android_device_xiaomi_helium" remote="TeamWin" revision="android-7.1" />
-</manifest>
+```bash
+mkdir omni8_minimal
+cd omni8_minimal
+repo init --depth=1 -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-8.1 --no-clone-bundle
 ```
 
-Then run `repo sync` to check it out.
+Download device tree repo:
+
+```bash
+git clone -b omni-8.1 https://github.com/AnClark/twrp_device_huawei_hwp6_u06.git device/xiaomi/helium
+```
 
 To build:
 
 ```sh
 . build/envsetup.sh
 lunch omni_helium-eng
-make -j8 recoveryimage
+make recoveryimage
 ```
 
-Kernel sources are available at: https://github.com/LineageOS/android_kernel_xiaomi_msm8956
+This repo included a prebuilt kernel, but you can still work with source. Kernel sources are available at: <https://github.com/LineageOS/android_kernel_xiaomi_msm8956>. 
